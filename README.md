@@ -1,57 +1,53 @@
-## Obsidian Sample Plugin
+# Obsidian Link flags
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+[Link flags](https://github.com/vanniewelt/obsidian-link-flags) is an [Obsidian](https://obsidian.md/) plugin that enables you to display selected metadata from [front matter blocks](https://help.obsidian.md/Advanced+topics/YAML+front+matter) next to links. These pieces of metadata are called flags and they make it possible to aggregate data from multiple pages in a single place.
 
-This project uses Typescript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in Typescript Definition format, which contains TSDoc comments describing what it does.
+<figure>
+<img alt="Example usage" src="./images/example.png" />
+<figcaption>Theme used in this example is <a href="https://github.com/kepano/obsidian-minimal">Minimal</a></figcaption>
+</figure>
 
-**Note:** The Obsidian API is still in early alpha and is subject to change at any time!
+## Installation
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
+You can install third-party plugins in *Settings* → *Community plugins* → *Browse*. Look for a plugin named “Link flags”. Don’t forget to enable the plugin after installation.
 
-- Changes the default font color to red using `styles.css`.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+## Usage
 
-### First time developing plugins?
+By default, there no tags displayed. To display a flag next to a particular link, you have to:
 
-Quick starting guide for new plugin devs:
+- Populate linked page’s [YAML front matter](https://help.obsidian.md/Advanced+topics/YAML+front+matter) with your key-value pair
+- Add the key in plugin settings (*Settings* → *Plugin options* → *Flags*).
+- Open a *Preview mode*
 
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
+> ⚠️ If you update flags’ settings or front matter while the preview mode is opened, the changes won’t take effect immediately. You have to close and reopen the editor for the change to take effect.
 
-### Releasing new releases
+![Specifying front matter metadata](./images/usage-1.png)
 
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments.
-- Publish the release.
+![Displaying flags](./images/usage-2.png)
 
-### Adding your plugin to the community plugin list
+### Display options
 
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
+- You can specify whether should be displayed **before** or **after links**
+- Flags are listed **in order in which they’re specified in settings**.
+- You can **hide a flag key and show only a value** by prepending a `-` to the key in the plugin’s settings (eg. `-status` will display `✅` instead of `status: ✅`)
 
-### How to use
+The way the particular flag is formatted depends on its value:
 
-- Clone this repo.
-- `npm i` or `yarn` to install dependencies
-- `npm run dev` to start compilation in watch mode.
+| Type | Field | Display |
+| --- | --- | --- |
+| string or number | `rating: 5` | rating: 5 |
+| `true` or object |  `completed: true` | completed |
+| `false`, null or empty | `completed: false` | (*none*) |
+| array of strings | `tags: [book, todo]`  | tags: book, todo |
 
-### Manually installing the plugin
+### How they will look like?
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
+Flags are **styled as tags**, so if your theme already applies any styles to tags, they will be also applied on flags. In the examples, I’m using [Minimal](https://github.com/kepano/obsidian-minimal) theme which styles tags very neatly.
 
-### API Documentation
+### Can I customize flags’ appearance?
 
-See https://github.com/obsidianmd/obsidian-api
+Yes, you can supply custom CSS to style them. Every flag element has `flag` class, `data-flag-key` and `data-flag-value` attributes so you can target them with CSS selectors. If you’re in doubt, use developer tools to inspect elements’ styles.
+
+## Contributing
+
+You can submit an issue or a pull request.

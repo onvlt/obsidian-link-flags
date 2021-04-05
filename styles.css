@@ -1,4 +1,7 @@
-/* Sets all the text color to red! */
-body {
-  color: red;
+.flag--before {
+  margin-right: 4px;
+}
+
+.flag--after {
+  margin-left: 4px;
 }
