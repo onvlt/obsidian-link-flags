@@ -9,7 +9,9 @@
 
 ## Installation
 
-You can install third-party plugins in *Settings* → *Community plugins* → *Browse*. Look for a plugin named “Link flags”. Don’t forget to enable the plugin after installation.
+~~You can install third-party plugins in *Settings* → *Community plugins* → *Browse*. Look for a plugin named “Link flags”. Don’t forget to enable the plugin after installation.~~
+
+This extension is not published yet, unfortunately I haven't gotten to it yet.
 
 ## Usage
 
